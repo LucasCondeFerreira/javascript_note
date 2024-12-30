@@ -1,0 +1,48 @@
+@import './custom_colors';
+
+.logo {
+  height: 40px;
+  margin-top: 8px;
+}
+.navbar-burger span {
+  color: #fff !important;
+}
+nav.navbar {
+  height: 70px;
+  border-bottom: 1px solid black;
+
+  .navbar-brand {
+    img {
+      height: 40px;
+      margin-top: 15px;
+    }
+  }
+
+  .navbar-logged {
+    .navbar-menu {
+      background-color: $custom-purple;
+    }
+  }
+}
+@import '~bulma'; // Garante que Bulma está importado corretamente
+
+.navbar-logged {
+  background-color: $custom-purple;
+
+  .navbar-menu {
+    background-color: $custom-purple;
+  }
+}
+.has-text-custom-purple {
+  color: #694ed8; // Substitua pelo código da sua cor
+}
+
+.button.is-outlined.has-text-custom-purple {
+  border-color: #694ed8;
+  color: #694ed8;
+
+  &:hover {
+    background-color: #694ed8;
+    color: #fff;
+  }
+}

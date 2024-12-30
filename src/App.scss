@@ -1,0 +1,70 @@
+@charset 'utf-8';
+@import '~bulma/sass/utilities/initial-variables';
+@import '~bulma/sass/utilities/functions';
+@import '~bulma/sass/utilities/derived-variables';
+@import 'bulma/sass/utilities/functions';
+@import './styles/custom_colors.scss';
+
+$custom-colors: (
+  'custom-purple': (
+    $custom-purple,
+  ),
+  'custom-purple-darker': (
+    $custom-purple-darker,
+  ),
+);
+
+// Defina a variável faltante
+$input-disabled-color: #b5b5b5;
+
+// Importe o rbx
+@import '~rbx/rbx.sass';
+
+// Import Bulma styles
+@import '~bulma/bulma';
+@import 'bulma/bulma';
+
+// Import rbx style fixes
+@import 'rbx/rbx';
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+.is-custom-purple {
+  color: $custom-purple !important;
+  border-color: $custom-purple !important;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
