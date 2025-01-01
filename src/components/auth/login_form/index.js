@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Link,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import UserService from '../../../services/users';
 
 function LoginForm() {
@@ -12,7 +22,7 @@ function LoginForm() {
     evt.preventDefault();
 
     try {
-      await UserService.login({ email: email, password: password });
+      await UserService.login({ email, password });
       navigate('/notes');
     } catch (error) {
       setError(true);
@@ -20,46 +30,49 @@ function LoginForm() {
   };
 
   return (
-    <form className='form-container' onSubmit={handleSubmit}>
-      <div className='form-field'>
-        <label htmlFor='email'>Email:</label>
-        <input
-          id='email'
-          type='email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </div>
+    <Box maxW='400px' mx='auto' p='4' boxShadow='md' borderRadius='md'>
+      <form onSubmit={handleSubmit}>
+        <VStack spacing={4} align='stretch'>
+          <FormControl id='email' isRequired>
+            <FormLabel>Email:</FormLabel>
+            <Input
+              type='email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </FormControl>
 
-      <div className='form-field'>
-        <label htmlFor='password'>Password:</label>
-        <input
-          id='password'
-          type='password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </div>
+          <FormControl id='password' isRequired>
+            <FormLabel>Password:</FormLabel>
+            <Input
+              type='password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FormControl>
 
-      <div className='form-actions'>
-        <div className='action-row'>
-          <a
-            className='btn btn-link'
-            onClick={() => navigate('/register')}
-            role='button'
-          >
-            Register or
-          </a>
-          <button className='btn btn-primary' type='submit'>
-            Login
-          </button>
-        </div>
-      </div>
+          <VStack spacing={2} align='stretch'>
+            <Button colorScheme='purple' type='submit'>
+              Login
+            </Button>
+            <Link
+              color='purple.500'
+              onClick={() => navigate('/register')}
+              textAlign='center'
+              role='button'
+            >
+              Register or
+            </Link>
+          </VStack>
+        </VStack>
+      </form>
 
-      {error && <p className='error-message'>Email or Password invalid</p>}
-    </form>
+      {error && (
+        <Text mt={4} color='red.500' fontSize='sm' textAlign='center'>
+          Email or Password invalid
+        </Text>
+      )}
+    </Box>
   );
 }
 
