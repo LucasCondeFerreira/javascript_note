@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -25,8 +25,8 @@ function Search(props) {
         />
       </div>
       <div className='column is-mobile is-1'>
-        <a
-          href='#'
+        <button
+          className='button is-text'
           onClick={() => {
             props.fetchNotes();
             setQuery('');
@@ -37,7 +37,7 @@ function Search(props) {
             color='grey'
             className='is-pulled-left'
           />
-        </a>
+        </button>
       </div>
     </div>
   );

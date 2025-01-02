@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './register_form.scss';
 import UserService from '../../../services/users';
-import { Redirect } from 'react-router-dom';
 
 function RegisterForm() {
   const [name, setName] = useState('');
@@ -64,14 +63,12 @@ function RegisterForm() {
 
       <div className='form-actions'>
         <div className='action-row'>
-          <a
-            href='#'
+          <button
             onClick={() => navigate('/login')}
-            className='btn btn-link'
-            role='button'
+            className='button is-text is-pulled-left'
           >
             Login or
-          </a>
+          </button>
           <button type='submit' className='btn btn-primary'>
             Register
           </button>

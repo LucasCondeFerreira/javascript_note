@@ -8,7 +8,7 @@ import { faList } from '@fortawesome/free-solid-svg-icons';
 
 function HeaderLogged(props) {
   const [redirectToHome, setRedirectToHome] = useState(false);
-  const [user, setUser] = useState(localStorage.getItem('user'));
+  const [user] = useState(localStorage.getItem('user'));
 
   const logOut = async () => {
     await UserService.logout();
@@ -65,13 +65,9 @@ function HeaderLogged(props) {
                       User Edit
                     </Link>
                     <hr className='dropdown-divider' />
-                    <a
-                      href='#'
-                      onClick={(e) => logOut()}
-                      className='dropdown-item'
-                    >
+                    <button onClick={(e) => logOut()} className='dropdown-item'>
                       LogOut
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
