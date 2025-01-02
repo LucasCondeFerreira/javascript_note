@@ -45,13 +45,13 @@ function LoginForm() {
 
       <div className='form-actions'>
         <div className='action-row'>
-          <a
+          <button
             className='btn btn-link'
             onClick={() => navigate('/register')}
             role='button'
           >
             Register or
-          </a>
+          </button>
           <button className='btn btn-primary' type='submit'>
             Login
           </button>

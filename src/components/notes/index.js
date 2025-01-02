@@ -26,15 +26,12 @@ function Notes(props) {
   }
 
   const selectNote = (id) => {
-    const note = notes.find((note) => {
-      return note._id === id;
-    });
-    setCurrentNote(note);
+    setCurrentNote(notes.find((note) => note._id === id));
   };
 
   const createNote = async (params) => {
-    const note = await NoteService.create();
-    fetchNotes();
+    await NoteService.create(params); // Chama o serviço de criação
+    fetchNotes(); // Atualiza a lista de notas após a criação
   };
 
   const deleteNote = async (note) => {
