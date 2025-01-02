@@ -48,7 +48,6 @@ function LoginForm() {
           <button
             className='btn btn-link'
             onClick={() => navigate('/register')}
-            role='button'
           >
             Register or
           </button>
