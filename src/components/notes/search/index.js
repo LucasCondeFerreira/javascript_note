@@ -1,5 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { Input, Column } from 'rbx';
+import React, { Fragment, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,18 +12,19 @@ function Search(props) {
   };
 
   return (
-    <Column.Group className='is-vcentered' breakpoint='mobile'>
-      <Column size='9' offset={1}>
-        <Input
+    <div className='columns is-vcentered'>
+      <div className='column is-9 is-offset-1'>
+        <input
           type='text'
+          className='input'
           name={query}
           value={query}
           placeholder='Search note...'
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-      </Column>
-      <Column mobile={2} size={1}>
+      </div>
+      <div className='column is-mobile is-1'>
         <a
           href='#'
           onClick={() => {
@@ -35,11 +35,11 @@ function Search(props) {
           <FontAwesomeIcon
             icon={faTimes}
             color='grey'
-            className='is-pulled-left  '
+            className='is-pulled-left'
           />
         </a>
-      </Column>
-    </Column.Group>
+      </div>
+    </div>
   );
 }
 

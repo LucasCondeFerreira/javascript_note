@@ -17,16 +17,9 @@ $custom-colors: (
 // Defina a variável faltante
 $input-disabled-color: #b5b5b5;
 
-// Importe o rbx
-@import '~rbx/rbx.sass';
-
 // Import Bulma styles
 @import '~bulma/bulma';
 @import 'bulma/bulma';
-
-// Import rbx style fixes
-@import 'rbx/rbx';
-
 .App {
   text-align: center;
 }
