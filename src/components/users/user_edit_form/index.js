@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Button, Field, Control, Input, Column, Title, Help, Label } from 'rbx';
 import UserService from '../../../services/users';
 
 function UsersEditForm() {
@@ -31,45 +30,51 @@ function UsersEditForm() {
   return (
     <Fragment>
       <form onSubmit={handleSubmit}>
-        <Field>
-          <Control>
-            <Label className='has-text-grey'>Full Name</Label>
-            <Input
-              type='name'
+        <div className='field'>
+          <label className='label has-text-grey'>Full Name</label>
+          <div className='control'>
+            <input
+              className='input'
+              type='text'
               value={name || ''}
               onChange={(e) => setName(e.target.value)}
               required
               name='name'
             />
-          </Control>
-        </Field>
-        <Field>
-          <Control>
-            <Label className='has-text-grey'>Email</Label>
-            <Input
+          </div>
+        </div>
+
+        <div className='field'>
+          <label className='label has-text-grey'>Email</label>
+          <div className='control'>
+            <input
+              className='input'
               type='email'
               value={email || ''}
               onChange={(e) => setEmail(e.target.value)}
               required
               name='email'
             />
-          </Control>
-        </Field>
+          </div>
+        </div>
 
-        <Field>
-          <Control>
-            <Column.Group>
-              <Column className='has-text-right'>
-                <Button color='custom-purple' outlined>
+        <div className='field'>
+          <div className='control'>
+            <div className='columns is-mobile is-right'>
+              <div className='column is-narrow'>
+                <button className='button is-outlined is-custom-purple'>
                   Update
-                </Button>
-              </Column>
-            </Column.Group>
-          </Control>
-        </Field>
-        {status == 'error' && <Help color='danger'>Problem in update</Help>}
-        {status == 'success' && (
-          <Help color='primary'>Updated with success</Help>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {status === 'error' && (
+          <p className='help is-danger'>Problem in update</p>
+        )}
+        {status === 'success' && (
+          <p className='help is-primary'>Updated with success</p>
         )}
       </form>
     </Fragment>

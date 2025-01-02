@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react';
-import { Button, Field, Control, Input, Column, Title, Help, Label } from 'rbx';
 import UserService from '../../../services/users';
 
 function UsersEditFormPassword() {
@@ -10,7 +9,7 @@ function UsersEditFormPassword() {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
 
-    if (password == password_confirmation) {
+    if (password === password_confirmation) {
       try {
         await UserService.updatePassword({ password: password });
         setStatus('success');
@@ -25,50 +24,54 @@ function UsersEditFormPassword() {
   return (
     <Fragment>
       <form onSubmit={handleSubmit}>
-        <Field>
-          <Control>
-            <Label className='has-text-grey'>Password</Label>
-            <Input
-              type='text'
+        <div className='field'>
+          <label className='label has-text-grey'>Password</label>
+          <div className='control'>
+            <input
+              className='input'
+              type='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               name='password'
             />
-          </Control>
-        </Field>
-        <Field>
-          <Control>
-            <Label className='has-text-grey'>Password Confirmation</Label>
-            <Input
-              type='text'
+          </div>
+        </div>
+
+        <div className='field'>
+          <label className='label has-text-grey'>Password Confirmation</label>
+          <div className='control'>
+            <input
+              className='input'
+              type='password'
               value={password_confirmation}
               onChange={(e) => setPasswordConfirmation(e.target.value)}
               required
               name='password_confirmation'
             />
-          </Control>
-        </Field>
+          </div>
+        </div>
 
-        <Field>
-          <Control>
-            <Column.Group>
-              <Column className='has-text-right'>
-                <Button color='custom-purple' outlined>
+        <div className='field'>
+          <div className='control'>
+            <div className='columns is-mobile is-right'>
+              <div className='column is-narrow'>
+                <button className='button is-outlined is-custom-purple'>
                   Update Password
-                </Button>
-              </Column>
-            </Column.Group>
-          </Control>
-        </Field>
-        {status == 'error_update' && (
-          <Help color='danger'>Problem in password update</Help>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {status === 'error_update' && (
+          <p className='help is-danger'>Problem in password update</p>
         )}
-        {status == 'error_confirmation_password' && (
-          <Help color='danger'>Password don't match</Help>
+        {status === 'error_confirmation_password' && (
+          <p className='help is-danger'>Passwords don't match</p>
         )}
-        {status == 'success' && (
-          <Help color='primary'>Updated with success</Help>
+        {status === 'success' && (
+          <p className='help is-primary'>Updated with success</p>
         )}
       </form>
     </Fragment>

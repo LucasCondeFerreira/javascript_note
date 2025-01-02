@@ -1,6 +1,4 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Column, Button } from 'rbx';
-import '../../styles/notes.scss';
 import { push as Menu } from 'react-burger-menu';
 import List from '../notes/list';
 import NoteService from '../../services/note';
@@ -52,6 +50,7 @@ function Notes(props) {
     setNotes(newNotes);
     setCurrentNote(updatedNote.data);
   };
+
   const searchNotes = async (query) => {
     const response = await NoteService.search(query);
     setNotes(response.data);
@@ -79,9 +78,9 @@ function Notes(props) {
           />
         </Menu>
 
-        <Column size={12} className='notes-editor' id='notes-editor'>
+        <div className='column is-12 notes-editor' id='notes-editor'>
           <Editor note={current_note} updateNote={updateNote} />
-        </Column>
+        </div>
       </div>
     </Fragment>
   );

@@ -1,51 +1,55 @@
-import React, {useState} from 'react';
-import { Navbar, Container, Column } from 'rbx';
+import React, { useState } from 'react';
 import LogoImage from '../../assets/images/logo.png';
-import "../../styles/header.scss";
-   import { Link } from 'react-router-dom';
+import '../../styles/header.scss';
+import { Link } from 'react-router-dom';
 
-function Header(){
+function Header() {
+  const [openMenu, setOpenMenu] = useState(false);
 
-        const [openMenu, setOpenMenu] = useState(false);
+  return (
+    <nav className='navbar is-light'>
+      <div className='container'>
+        <div className='navbar-brand'>
+          <Link to='/'>
+            <img className='logo' src={LogoImage} alt='Logo' />
+          </Link>
+          <button
+            className={`navbar-burger burger ${openMenu ? 'is-active' : ''}`}
+            aria-label='menu'
+            aria-expanded={openMenu ? 'true' : 'false'}
+            onClick={() => setOpenMenu(!openMenu)}
+            data-target='navbar-menu'
+          >
+            <span aria-hidden='true'></span>
+            <span aria-hidden='true'></span>
+            <span aria-hidden='true'></span>
+          </button>
+        </div>
 
-    return(
-    <Navbar>
-      <Container>
-        <Navbar.Brand>
-              <Link to="/">
-                <img
-                className="logo"
-                src={LogoImage} />
+        <div
+          id='navbar-menu'
+          className={`navbar-menu ${openMenu ? 'is-active' : ''}`}
+        >
+          <div className='navbar-end'>
+            <div className='buttons'>
+              <Link
+                to='/register'
+                className='button is-white has-text-custom-purple'
+              >
+                Register
               </Link>
-          <Navbar.Burger
-
-            className="navbar-burger burger" 
-            aria-label="menu" 
-            aria-expanded="false" 
-            data-target="navbar-menu"
-            active={openMenu.toString()}
-            onClick={() => setOpenMenu(!openMenu)}>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </Navbar.Burger>
-        </Navbar.Brand>
-
-        <Navbar.Menu id="navbar-menu">
-          <Navbar.Segment as="div" className="navbar-item navbar-end" align="right">
-                <Column.Group>
-                  <Column>
-                    <Link to="/register" className="button is-white has-text-custom-purple">Register</Link>
-                  </Column>
-                  <Column>
-                    <Link to="/login" className="button is-outlined has-text-custom-purple">Login</Link>
-                  </Column>
-                </Column.Group>
-              </Navbar.Segment>
-        </Navbar.Menu>
-      </Container>
-    </Navbar>
-    );
+              <Link
+                to='/login'
+                className='button is-outlined has-text-custom-purple'
+              >
+                Login
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
 }
 
 export default Header;

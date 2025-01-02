@@ -1,41 +1,40 @@
 import React, { Fragment } from 'react';
 import PresentationImage from '../../assets/images/presentation.png';
 import Header from '../../components/header';
-import { Column, Section, Title, Container } from 'rbx';
 import '../../styles/home.scss';
 import { Link } from 'react-router-dom';
 
 const Home = () => (
   <Fragment>
     <Header />
-    <Section size='medium' className='home'>
-      <Container>
-        <Column.Group>
-          <Column size={5}>
-            <Title size={2} spaced className='has-text-white'>
-              Create notes easily and access when you wants on the cloud
-            </Title>
-            <Title size={5} spaced className='has-text-light' subtitle>
+    <section className='section home'>
+      <div className='container'>
+        <div className='columns'>
+          <div className='column is-5'>
+            <h2 className='title is-2 has-text-white'>
+              Create notes easily and access when you want on the cloud
+            </h2>
+            <h5 className='title is-5 has-text-light'>
               Lorem ipsum, or lipsum as it is sometimes known, is dummy text
-              used in laying out print, graphic or web designs.
+              used in laying out print, graphic, or web designs.
               <br />
               <br />
               Lorem ipsum, or lipsum as it is sometimes known, is dummy text
               used in laying out print.
-            </Title>
-              <Link
-                to='/register'
-                className='button is-outlined is-white is-large'
-              >
-                <strong>Register for free Now</strong>
-              </Link>
-          </Column>
-          <Column size={6} offset={1}>
+            </h5>
+            <Link
+              to='/register'
+              className='button is-outlined is-white is-large'
+            >
+              <strong>Register for free Now</strong>
+            </Link>
+          </div>
+          <div className='column is-6 is-offset-1'>
             <img src={PresentationImage} alt='Apresentação do aplicativo' />
-          </Column>
-        </Column.Group>
-      </Container>
-    </Section>
+          </div>
+        </div>
+      </div>
+    </section>
   </Fragment>
 );
 

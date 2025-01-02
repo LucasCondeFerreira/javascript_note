@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Button } from 'rbx';
 import UserService from '../../../services/users';
 import { Navigate } from 'react-router-dom';
 
@@ -9,16 +8,16 @@ function UsersDelete() {
   const deleteUser = async () => {
     if (window.confirm('Are you sure you wish to delete this account?')) {
       UserService.delete();
-      Navigate('/');
+      setRedirectToHome(true);
     }
   };
 
-  if (redirectToHome == true) return <Navigate to={{ pathname: '/' }} />;
+  if (redirectToHome === true) return <Navigate to={{ pathname: '/' }} />;
 
   return (
-    <Button color='danger' onClick={() => deleteUser()}>
+    <button className='button is-danger' onClick={() => deleteUser()}>
       Excluir conta
-    </Button>
+    </button>
   );
 }
 

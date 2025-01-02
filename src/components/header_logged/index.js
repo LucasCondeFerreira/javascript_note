@@ -1,5 +1,4 @@
-import React, { Fragment, useState } from 'react';
-import { Navbar, Container, Column, Button, Dropdown } from 'rbx';
+import React, { useState } from 'react';
 import LogoImage from '../../assets/images/logo-white.png';
 import '../../styles/header.scss';
 import UserService from '../../services/users';
@@ -16,77 +15,71 @@ function HeaderLogged(props) {
     setRedirectToHome(true);
   };
 
-  if (redirectToHome == true) return <Navigate to={{ pathname: '/' }} />;
+  if (redirectToHome === true) return <Navigate to={{ pathname: '/' }} />;
 
   return (
-    <Navbar color='custom-purple' className='navbar-logged'>
-      <Navbar.Brand>
-        <Column.Group>
-          <Column size='11' offset='1'>
-            <Link to='/notes'>
-              <img class='logo' src={LogoImage} />
-            </Link>
-          </Column>
-        </Column.Group>
-        <Navbar.Burger
-          className='is-white navbar-burger burger'
-          aria-label='menu'
-          aria-expanded='false'
-          data-target='navbar-menu'
-        >
-          <span aria-hidden='true'></span>
-          <span aria-hidden='true'></span>
-          <span aria-hidden='true'></span>
-        </Navbar.Burger>
-      </Navbar.Brand>
+    <nav className='navbar is-custom-purple navbar-logged'>
+      <div className='container'>
+        <div className='navbar-brand'>
+          <div className='columns'>
+            <div className='column is-11 is-offset-1'>
+              <Link to='/notes'>
+                <img className='logo' src={LogoImage} alt='Logo' />
+              </Link>
+            </div>
+          </div>
+          <button
+            className='navbar-burger burger is-white'
+            aria-label='menu'
+            aria-expanded='false'
+            data-target='navbar-menu'
+          >
+            <span aria-hidden='true'></span>
+            <span aria-hidden='true'></span>
+            <span aria-hidden='true'></span>
+          </button>
+        </div>
 
-      <Navbar.Menu>
-        <Navbar.Segment
-          as='div'
-          className='navbar-item navbar-start'
-          align='start'
-        >
-          <Navbar.Item as='div'>
-            <Button
-              className='open-button'
-              color='white'
-              outlined
-              onClick={() => props.setIsOpen(true)}
-            >
-              <FontAwesomeIcon icon={faList} />
-            </Button>
-          </Navbar.Item>
-        </Navbar.Segment>
-        <Navbar.Segment
-          as='div'
-          className='navbar-item navbar-end'
-          align='right'
-        >
-          <Navbar.Item as='div'>
-            <Dropdown>
-              <Dropdown.Trigger>
-                <Button className='button' color='white' outlined>
-                  <span>{JSON.parse(user)['name']} ▼</span>
-                </Button>
-              </Dropdown.Trigger>
-              <Dropdown.Menu>
-                <Dropdown.Content>
-                  <Dropdown.Item as='div'>
-                    <Link to='/users/edit'>User Edit</Link>
-                  </Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item as='div'>
-                    <a href='#' onClick={(e) => logOut()}>
+        <div id='navbar-menu' className='navbar-menu'>
+          <div className='navbar-start'>
+            <div className='navbar-item'>
+              <button
+                className='button is-white is-outlined open-button'
+                onClick={() => props.setIsOpen(true)}
+              >
+                <FontAwesomeIcon icon={faList} />
+              </button>
+            </div>
+          </div>
+          <div className='navbar-end'>
+            <div className='navbar-item'>
+              <div className='dropdown'>
+                <div className='dropdown-trigger'>
+                  <button className='button is-white is-outlined'>
+                    <span>{JSON.parse(user)['name']} ▼</span>
+                  </button>
+                </div>
+                <div className='dropdown-menu'>
+                  <div className='dropdown-content'>
+                    <Link to='/users/edit' className='dropdown-item'>
+                      User Edit
+                    </Link>
+                    <hr className='dropdown-divider' />
+                    <a
+                      href='#'
+                      onClick={(e) => logOut()}
+                      className='dropdown-item'
+                    >
                       LogOut
                     </a>
-                  </Dropdown.Item>
-                </Dropdown.Content>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Navbar.Item>
-        </Navbar.Segment>
-      </Navbar.Menu>
-    </Navbar>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 }
 

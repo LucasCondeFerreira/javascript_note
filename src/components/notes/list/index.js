@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { Button, Column, Tag, Title, List } from 'rbx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Moment from 'moment';
@@ -7,54 +6,63 @@ import Moment from 'moment';
 function ListNotes(props) {
   return (
     <Fragment>
-      <Column.Group breakpoint='mobile'>
-        <Column size={6} offset={1}>
-          <Title size={6}>{props.notes.length} Notes</Title>
-        </Column>
-        <Column size={2}>
-          <Button
-            state='active'
-            className='is-custom-purple'
-            color='custom-purple'
-            outlined
-            size='small'
+      <div className='columns is-mobile'>
+        <div className='column is-offset-1 is-half'>
+          <h6 className='title is-6'>{props.notes.length} Notes</h6>
+        </div>
+        <div className='column is-2'>
+          <button
+            className='button is-small is-outlined is-custom-purple'
             onClick={() => props.createNote()}
           >
             Notes +
-          </Button>
-        </Column>
-      </Column.Group>
-      <List className='notes-list'>
-        {props.notes.map((item, key) => (
-          <List.Item
-            key={key}
-            onClick={() => props.selectNote(item._id)}
-            active={item == props.current_note}
-          >
-            <Title size={6}>
-              {item.title.replace(/(<([^>]+)>)/gi, '').substring(0, 15)}
-            </Title>
-            <Title size={6} subtitle spaced={false}>
-              {item.body.replace(/(<([^>]+)>)/gi, '').substring(0, 30)}
-            </Title>
+          </button>
+        </div>
+      </div>
 
-            <Column.Group breakpoint='mobile'>
-              <Column size={10}>
-                <Tag color='dark'>
+      <ul className='list notes-list'>
+        {props.notes.map((item, key) => (
+          <li
+            key={key}
+            className={`list-item ${
+              item === props.current_note ? 'is-active' : ''
+            }`}
+            onClick={() => props.selectNote(item._id)}
+          >
+            <h6 className='title is-6'>
+              {item.title.replace(/(<([^>]+)>)/gi, '').substring(0, 15)}
+            </h6>
+            <h6
+              className='subtitle is-6'
+              style={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {item.body.replace(/(<([^>]+)>)/gi, '').substring(0, 30)}
+            </h6>
+
+            <div className='columns is-mobile'>
+              <div className='column is-10'>
+                <span className='tag is-dark'>
                   {Moment(item.created_at).format('DD/MM')}
-                </Tag>
-              </Column>
-              <Column size={2}>
+                </span>
+              </div>
+              <div className='column is-2'>
                 <FontAwesomeIcon
                   icon={faTrash}
-                  onClick={() => props.deleteNote(item)}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent triggering the onClick for selecting the note
+                    props.deleteNote(item);
+                  }}
                   color='grey'
                 />
-              </Column>
-            </Column.Group>
-          </List.Item>
+              </div>
+            </div>
+          </li>
         ))}
-      </List>
+      </ul>
     </Fragment>
   );
 }
