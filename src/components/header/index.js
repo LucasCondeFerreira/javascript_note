@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import LogoImage from '../../assets/images/logo.png';
 import '../../styles/header.scss';
-import { Link } from 'react-router-dom';
 
 function Header() {
-  const [openMenu, setOpenMenu] = useState(false);
+  const [isMenuActive, setIsMenuActive] = useState(false);
 
   return (
-    <nav className='navbar is-light'>
+    <nav
+      className='navbar is-light'
+      role='navigation'
+      aria-label='main navigation'
+    >
       <div className='container'>
         <div className='navbar-brand'>
-          <Link to='/'>
-            <img className='logo' src={LogoImage} alt='Logo' />
+          {/* Logo */}
+          <Link to='/' className='navbar-item'>
+            <img src={LogoImage} alt='Logo' style={{ maxHeight: '40px' }} />
           </Link>
+
+          {/* Menu Burger */}
           <button
-            className={`navbar-burger burger ${openMenu ? 'is-active' : ''}`}
+            className={`navbar-burger burger ${
+              isMenuActive ? 'is-active' : ''
+            }`}
             aria-label='menu'
-            aria-expanded={openMenu ? 'true' : 'false'}
-            onClick={() => setOpenMenu(!openMenu)}
-            data-target='navbar-menu'
+            aria-expanded={isMenuActive ? 'true' : 'false'}
+            onClick={() => setIsMenuActive(!isMenuActive)}
           >
             <span aria-hidden='true'></span>
             <span aria-hidden='true'></span>
@@ -26,25 +34,18 @@ function Header() {
           </button>
         </div>
 
-        <div
-          id='navbar-menu'
-          className={`navbar-menu ${openMenu ? 'is-active' : ''}`}
-        >
+        {/* Menu Links */}
+        <div className={`navbar-menu ${isMenuActive ? 'is-active' : ''}`}>
           <div className='navbar-end'>
-            <div className='buttons'>
-              <Link
-                to='/register'
-                className='button is-white has-text-custom-purple'
-              >
-                Register
-              </Link>
-              <Link
-                to='/login'
-                className='button is-outlined has-text-custom-purple'
-              >
-                Login
-              </Link>
-            </div>
+            <Link to='/register' className='navbar-item'>
+              Register
+            </Link>
+            <Link
+              to='/login'
+              className='navbar-item button is-outlined is-primary'
+            >
+              Login
+            </Link>
           </div>
         </div>
       </div>

@@ -1,38 +1,45 @@
 import React, { useState } from 'react';
-import LogoImage from '../../assets/images/logo-white.png';
-import '../../styles/header.scss';
-import UserService from '../../services/users';
 import { Link, Navigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
+import LogoImage from '../../assets/images/logo-white.png';
+import UserService from '../../services/users';
+import '../../styles/header.scss';
 
 function HeaderLogged(props) {
   const [redirectToHome, setRedirectToHome] = useState(false);
-  const [user] = useState(localStorage.getItem('user'));
+  const [user] = useState(JSON.parse(localStorage.getItem('user')));
+  const [isMenuActive, setIsMenuActive] = useState(false);
+  const [isDropdownActive, setIsDropdownActive] = useState(false);
 
   const logOut = async () => {
     await UserService.logout();
     setRedirectToHome(true);
   };
 
-  if (redirectToHome === true) return <Navigate to={{ pathname: '/' }} />;
+  if (redirectToHome) {
+    return <Navigate to='/' />;
+  }
 
   return (
-    <nav className='navbar is-custom-purple navbar-logged'>
+    <nav
+      className='navbar is-custom-purple navbar-logged'
+      role='navigation'
+      aria-label='main navigation'
+    >
       <div className='container'>
+        {/* Logo e Menu Burger */}
         <div className='navbar-brand'>
-          <div className='columns'>
-            <div className='column is-11 is-offset-1'>
-              <Link to='/notes'>
-                <img className='logo' src={LogoImage} alt='Logo' />
-              </Link>
-            </div>
-          </div>
+          <Link to='/notes' className='navbar-item'>
+            <img src={LogoImage} alt='Logo' />
+          </Link>
           <button
-            className='navbar-burger burger is-white'
+            className={`navbar-burger burger ${
+              isMenuActive ? 'is-active' : ''
+            }`}
             aria-label='menu'
-            aria-expanded='false'
-            data-target='navbar-menu'
+            aria-expanded={isMenuActive}
+            onClick={() => setIsMenuActive(!isMenuActive)}
           >
             <span aria-hidden='true'></span>
             <span aria-hidden='true'></span>
@@ -40,7 +47,8 @@ function HeaderLogged(props) {
           </button>
         </div>
 
-        <div id='navbar-menu' className='navbar-menu'>
+        {/* Menu */}
+        <div className={`navbar-menu ${isMenuActive ? 'is-active' : ''}`}>
           <div className='navbar-start'>
             <div className='navbar-item'>
               <button
@@ -51,12 +59,18 @@ function HeaderLogged(props) {
               </button>
             </div>
           </div>
+
           <div className='navbar-end'>
             <div className='navbar-item'>
-              <div className='dropdown'>
+              <div
+                className={`dropdown ${isDropdownActive ? 'is-active' : ''}`}
+              >
                 <div className='dropdown-trigger'>
-                  <button className='button is-white is-outlined'>
-                    <span>{JSON.parse(user)['name']} ▼</span>
+                  <button
+                    className='button is-white is-outlined'
+                    onClick={() => setIsDropdownActive(!isDropdownActive)}
+                  >
+                    <span>{user.name} ▼</span>
                   </button>
                 </div>
                 <div className='dropdown-menu'>
@@ -65,7 +79,7 @@ function HeaderLogged(props) {
                       User Edit
                     </Link>
                     <hr className='dropdown-divider' />
-                    <button onClick={(e) => logOut()} className='dropdown-item'>
+                    <button onClick={logOut} className='dropdown-item'>
                       LogOut
                     </button>
                   </div>

@@ -1,5 +1,9 @@
 @import './custom_colors';
 
+.is-custom-purple {
+  background-color: $custom-purple;
+  color: #fff;
+}
 .logo {
   height: 40px;
   margin-top: 8px;
@@ -10,6 +14,7 @@
 nav.navbar {
   height: 70px;
   border-bottom: 1px solid black;
+  background-color: #694ed8 !important;
 
   .navbar-brand {
     img {
@@ -27,10 +32,10 @@ nav.navbar {
 @import '~bulma'; // Garante que Bulma está importado corretamente
 
 .navbar-logged {
-  background-color: $custom-purple;
+  background-color: #694ed8;
 
   .navbar-menu {
-    background-color: $custom-purple;
+    background-color: #694ed8;
   }
 }
 .has-text-custom-purple {
