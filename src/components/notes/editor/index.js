@@ -1,39 +1,36 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import debounce from 'lodash/debounce';
 
-import ReactQuill from 'react-quill'; // ES6
-import 'react-quill/dist/quill.snow.css'; // ES6
-
-function Editor(props) {
+function Editor({ note, updateNote }) {
   const [currentContent, setCurrentContent] = useState('');
 
-  const updateNote = (content) => {
+  const debouncedUpdateNote = debounce((content) => {
     const title = content.replace(/(<([^>]+)>)/gi, '').slice(0, 30);
-    props.updateNote(props.note, { 'title': title, 'body': content });
-  };
-
-  const [timer, setTimer] = useState(null);
+    updateNote(note, { title, body: content });
+  }, 2000);
 
   const handleChange = (content, delta, source) => {
-    clearTimeout(timer);
     if (source === 'user') {
       setCurrentContent(content);
-      setTimer(setTimeout(() => updateNote(content), 2000));
+      debouncedUpdateNote(content);
     }
   };
 
   useEffect(() => {
-    setCurrentContent(props.note.body);
-  }, [props.note]);
+    setCurrentContent(note.body);
+  }, [note]);
 
   const modules = {
     toolbar: [
-      [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+      [{ header: '1' }, { header: '2' }, { font: [] }],
       ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
       [
-        { 'list': 'ordered' },
-        { 'list': 'bullet' },
-        { 'indent': '-1' },
-        { 'indent': '+1' },
+        { list: 'ordered' },
+        { list: 'bullet' },
+        { indent: '-1' },
+        { indent: '+1' },
       ],
       ['link'],
       ['clean'],
@@ -41,13 +38,14 @@ function Editor(props) {
   };
 
   return (
-    <Fragment>
+    <div className='notes-editor'>
       <ReactQuill
         value={currentContent}
         onChange={handleChange}
         modules={modules}
+        placeholder='Escreva sua nota aqui...'
       />
-    </Fragment>
+    </div>
   );
 }
 
